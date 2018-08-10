@@ -10,6 +10,7 @@ module.exports = {
   },
   devServer: {
     contentBase: PUBLIC_PATH,
+    watchContentBase: true,
     compress: true,
     port: 9000,
     before: initBackendStub
