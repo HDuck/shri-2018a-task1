@@ -19,21 +19,24 @@ export default function initMap(ymaps, containerId) {
     geoObjectBalloonContentLayout: getDetailsContentLayout(ymaps)
   });
 
+  objectManager.objects.options.set('preset', 'islands#greenDotIcon');
   objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
+  myMap.geoObjects.add(objectManager);
 
-  loadList().then(data => {
+  loadList().then((data) => {
+    console.log(data);
     objectManager.add(data);
   });
 
   // details
-  objectManager.objects.events.add('click', event => {
+  objectManager.objects.events.add('click', (event) => {
     const objectId = event.get('objectId');
     const obj = objectManager.objects.getById(objectId);
 
     objectManager.objects.balloon.open(objectId);
 
     if (!obj.properties.details) {
-      loadDetails(objectId).then(data => {
+      loadDetails(objectId).then((data) => {
         obj.properties.details = data;
         objectManager.objects.balloon.setData(obj);
       });
@@ -45,9 +48,9 @@ export default function initMap(ymaps, containerId) {
   myMap.controls.add(listBoxControl);
 
   var filterMonitor = new ymaps.Monitor(listBoxControl.state);
-  filterMonitor.add('filters', filters => {
+  filterMonitor.add('filters', (filters) => {
     objectManager.setFilter(
-      obj => filters[obj.isActive ? 'active' : 'defective']
+      (obj) => filters[obj.isActive ? 'active' : 'defective']
     );
   });
 }

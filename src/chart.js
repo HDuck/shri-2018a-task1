@@ -29,8 +29,8 @@ export function createChart(container, data, isActive) {
         {
           data: data,
           borderWidth: 1,
-            borderColor: borderColor,
-              backgroundColor: backgroundColor
+          borderColor: borderColor,
+          backgroundColor: backgroundColor
         }
       ]
     },
