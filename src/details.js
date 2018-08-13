@@ -1,4 +1,5 @@
 import { createChart } from './chart';
+import { getPopupContent } from './popup';
 
 export function getDetailsContentLayout(ymaps) {
   const BalloonContentLayout = ymaps.templateLayoutFactory.createClass(
@@ -16,6 +17,7 @@ export function getDetailsContentLayout(ymaps) {
                     connections: {{properties.details.connections}}
                 </div>
             </div>
+            <div class="drones-table"></div>
             <div class="details-info">
                 <div class="details-label">connections</div>
                 <canvas class="details-chart" width="270" height="100" />
@@ -34,6 +36,10 @@ export function getDetailsContentLayout(ymaps) {
         if (details) {
           const container = this.getElement().querySelector('.details-chart');
 
+          const dronesCont = this.getElement().querySelector('.drones-table');
+          const drones = getPopupContent(details);
+          dronesCont.innerHTML = getPopupContent(details);
+
           this.connectionChart = createChart(
             container,
             details.chart,
@@ -45,6 +51,10 @@ export function getDetailsContentLayout(ymaps) {
       clear: function() {
         if (this.connectionChart) {
           this.connectionChart.destroy();
+        }
+
+        if (this.dronesTable) {
+          this.dronesTable.destroy();
         }
 
         BalloonContentLayout.superclass.clear.call(this);

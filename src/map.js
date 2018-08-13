@@ -22,7 +22,6 @@ export default function initMap(ymaps, containerId) {
   myMap.geoObjects.add(objectManager);
 
   loadList().then((data) => {
-    console.log(data);
     objectManager.add(data);
   });
 

@@ -1,3 +1,5 @@
+const faker = require('faker');
+
 function getTableRowHtml(obj) {
     return `
         <tr>
@@ -9,20 +11,23 @@ function getTableRowHtml(obj) {
 
 export function getPopupContent(obj) {
 
-    const htmlStatus = obj.isActive
-        ? `<div class="station-info-active">active</div>`
-        : `<div class="station-info-defective">defective</div>`
-
     let content = `
         <div class="station-info">
-            <div class="station-info-label">base stations</div>
-            <div class="station-info-title">${obj.serialNumber}</div>
-            ${htmlStatus}
-            <div class="station-info-connections">${obj.connections}</div>
+            <div class="station-info-label">drones info</div>
         </div>
     `;
 
     if (obj.isActive) {
+
+        obj.drones = [];
+
+        for (var i = 0; i < obj.connections; i++) {
+
+          obj.drones[i] = {};
+          obj.drones[i].id = i + 1;
+          obj.drones[i].operator = faker.name.findName();
+        }
+
         const htmlRows = obj.drones.map(getTableRowHtml).join('\n');
 
         const htmlTable = `
@@ -39,7 +44,11 @@ export function getPopupContent(obj) {
             </table>
         `;
 
-        htmlInfo += htmlTable;
+        content += htmlTable;
+
+    } else {
+
+      content += `<div class="station-info-connections">No drones available</div>`;
     }
 
     return content;
