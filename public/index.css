@@ -46,5 +46,20 @@ body,
 .station-info-drones-table, th, td {
   border: 1px solid gray;
   border-collapse: collapse;
-  padding: 0.25em;
+  text-transform: capitalize;
+}
+
+th {
+  padding: 0.3em;
+  font-size: 1.1em;
+}
+
+td {
+  padding: 0.15em 0.5em;
+  font-size: 0.9em;
+}
+
+td:first-child {
+  text-align: center;
+  vertical-align: middle;
 }
